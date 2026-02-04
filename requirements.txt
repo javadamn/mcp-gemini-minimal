@@ -1,0 +1,4 @@
+fastmcp
+google-genai
+python-dotenv
+biopython>=1.80
