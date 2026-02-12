@@ -80,8 +80,10 @@ Your Python code does.
 ---
 
 # 4. Project Structure Overview
+    '''bash
 server.py # Starts MCP server
 client_gemini.py # Gemini-based CLI client
+    '''
 
 modules/
 init.py
