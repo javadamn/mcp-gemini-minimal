@@ -38,16 +38,16 @@ Examples:
 - Analyze mutations
 
 Tools live in:
-modules/seq_basics/tools/
+> modules/seq_basics/tools/
 
 ---
 
 ## Resources
 A **resource** is a file that tools can use.
 
-Examples:
-- GenBank files (.gb)
-- FASTA files (.fasta)
+> Examples:
+> - GenBank files (.gb)
+> - FASTA files (.fasta)
 
 Resources live in:
 modules/seq_basics/data/
@@ -112,7 +112,8 @@ Copy code
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-'''
+bash'''
+
 
 ## Step 2 — Add Your Gemini API Key
 
