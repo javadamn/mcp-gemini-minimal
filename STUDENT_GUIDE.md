@@ -6,7 +6,7 @@ This guide assumes some students may be new to computer science. Everything is e
 
 ---
 
-# 1. What Is This Starter?
+# 1. What is this starter?
 
 This repository is a framework for building **bioengineering automation tools** that can be used by an AI assistant via **MCP (Model Context Protocol)**.
 
@@ -24,7 +24,7 @@ The framework handles:
 
 ---
 
-# 2. Core Concepts
+# 2. Core concepts
 
 ## Tools
 A **tool** is a Python function that performs a computation.
@@ -59,7 +59,7 @@ pBR322.gb → resource name: "pBR322"
 
 ---
 
-# 3. How the Pipeline Works
+# 3. How the pipeline works
 
 When you run the project:
 
@@ -79,7 +79,7 @@ Your Python code does.
 
 ---
 
-# 4. Project Structure Overview
+# 4. Project structure overview
 ```
 .
 ├── server.py                 # MCP server entry point
@@ -111,7 +111,7 @@ modules/seq_basics/data/
 
 ---
 
-# 5. Quick Start
+# 5. Quick start
 
 ## Step 1  — Install Dependencies
 
@@ -122,7 +122,7 @@ pip install -r requirements.txt
 ```
 
 
-## Step 2 — Add Your Gemini API Key
+## Step 2 — Add your Gemini API key
 
 Create a file named .env in the project root:
 ```bash
@@ -138,7 +138,7 @@ Try:
 Translate the first 60bp of pBR322 in frame 1
 ```
 ---
-# 6. Adding a New Tool (Most Important Skill)
+# 6. Adding a new tool 
 
 Create a new file inside:
 ```bash
@@ -172,7 +172,7 @@ Important Rules:
 Restart the server and your tool will appear automatically.
 ---
 
-# 7. Adding New Sequence Files
+# 7. Adding new sequence files
 
 Add files into:
 ```bash
@@ -183,7 +183,7 @@ Restart the server. The file becomes a resource.
 
 ---
 
-# 8. Tools With Multiple Sequences
+# 8. Tools with multiple sequences
 
 Example:
 ```bash
@@ -203,7 +203,7 @@ Both parameters can be:
 - resource names
 - raw sequences
 ---
-# 9. Non-Sequence Inputs
+# 9. Non-sequence inputs
 
 Tools can take other types:
 ```bash
@@ -218,7 +218,7 @@ Guidelines:
 - Return JSON-friendly data.
 ---
 
-# 10. Creating a New Module
+# 10. Creating a new module
 
 If your project grows large, you may create:
 ```bash
@@ -235,7 +235,7 @@ Each module should contain:
 
 You may need to update "modules/__init__.py" to register new modules.
 ---
-# 13. pytest Suite
+# 13. pytest suite
 
 Run:
 ```bash
@@ -254,6 +254,6 @@ GEMINI_API_KEY="..."
 This means high demand. Retry later.
 ---
 ## Any issues ?
-send an email to: 
+Send an email to: 
 > javadamn@berkeley.edu
 
