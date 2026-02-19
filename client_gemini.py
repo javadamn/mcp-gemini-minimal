@@ -175,7 +175,7 @@ async def run_chat() -> None:
     # model = "gemini-2.5-flash-lite"
 
     # The client will pick up GEMINI_API_KEY (or GOOGLE_API_KEY) from a .env file.
-    # Create a (free) Gemini API key at https://ai.google.dev/gemini-api/docs/pricing?utm_source=chatgpt.com
+    # Create a (free) Gemini API key at https://aistudio.google.com/api-keys
     # You must add these lines to a new .env file with your API key:
     # GEMINI_API_KEY="YOUR_KEY_HERE"
     gemini = genai.Client()
