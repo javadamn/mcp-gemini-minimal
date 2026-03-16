@@ -9,17 +9,14 @@ Read it top to bottom once before writing any code.
 
 This repository is a framework for building **bioengineering automation tools** that an AI assistant can call via **MCP (Model Context Protocol)**.
 
-You write normal Python code that does the biology. The framework handles connecting it to the AI.
-
-> **The golden rule:** Your Python code performs the biological computation.  
-> The AI does *not* do the computation — it calls your code and explains the result.
+The framework handles connecting your Python codes to the AI.
 
 ### Four design principles
 
 1. **You write pure Python** — biology logic only, no networking or MCP code required.  
 2. **Convention over configuration** — the framework auto-discovers your files by name.  
 3. **No plumbing in your tool files** — you never import MCP or registration code.  
-4. **Copy → modify → extend** — start from the examples and edit them.
+4. **Copy >> modify >> extend** — start from the examples and edit them.
 
 ---
 
@@ -41,7 +38,7 @@ You write normal Python code that does the biology. The framework handles connec
 └── modules/
     ├── __init__.py                # Scans all sub-modules — do not edit
     │
-    └── seq_basics/                # ← EXAMPLE MODULE (copy this for your project)
+    └── seq_basics/                # EXAMPLE MODULE (copy this for your project)
         ├── __init__.py
         ├── SKILL.md               # AI guidance for this module (optional)
         ├── _utils.py              # Shared constants (codon table, etc.)
@@ -170,7 +167,7 @@ gc_content.json   ← C9 JSON wrapper      (the metadata / schema)
 
 ---
 
-## 6. The Python file — Function Object Pattern
+## 6. The Python file - Function Object Pattern
 
 Your Python file must follow the **Function Object Pattern**: a class with `initiate()` and `run()` methods, and a structured docstring. This is the same pattern used throughout the course.
 
@@ -324,7 +321,7 @@ The `.json` file formally describes your tool. It follows the schema in [`Functi
 
 ---
 
-## 8. Tools with multiple sequence parameters
+## 8. Tools with multiple input parameters
 
 ```python
 # hamming_distance.py
@@ -474,15 +471,15 @@ Any domain knowledge that helps Gemini explain results correctly.
 ```
 modules/
   <your_module>/
-    __init__.py        ← copy from seq_basics/ (can be empty)
-    SKILL.md           ← describe what this module does for the AI
+    __init__.py          ← copy from seq_basics/ (can be empty)
+    SKILL.md             ← describe what this module does for the AI
     data/
-      my_genome.gb
+      my_genome.gb       ← example data
     tools/
-      find_pam.py
-      find_pam.json
-      prompts.json
-      test_find_pam.py
+      find_pam.py        ← example tool 1
+      find_pam.json      ← example json file for tool 1
+      prompts.json       ← example tool 2
+      test_find_pam.py   ← example json file for tool 2
 ```
 
 `modules/__init__.py` auto-discovers new folders — you do not need to edit it.
@@ -508,7 +505,7 @@ Write tests that cover both typical inputs and edge cases. See `tests/test_tools
 | `prompts.json` | Test Prompts |
 | `test_<tool_name>.py` | Pytest |
 | `README.md` | Documentation |
-| `bio_functions_docs.md` *(optional)* | Theory Docs |
+| `<your_functions_docs>.md` | Theory Docs |
 
 Submit your GitHub repo URL on bCourses. The repo should reflect your **individual** contribution, not the whole team's work.
 
