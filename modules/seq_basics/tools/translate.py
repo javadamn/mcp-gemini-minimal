@@ -52,7 +52,7 @@ class Translate:
 
     def initiate(self) -> None:
         """One-time setup: load the codon table from shared utils."""
-        # [CHANGE] CODON_TABLE is imported from _utils.py (shared module-level
+        # ::: CODON_TABLE is imported from _utils.py (shared module-level
         # constant).  We assign it here into an instance variable so the class
         # follows the initiate/run pattern properly — state is set in initiate
         # and treated as immutable during run().

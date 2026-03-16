@@ -1,4 +1,4 @@
-"""Example tool — Reverse Complement.
+"""Example tool - Reverse Complement.
 
 For students copying this as a template:
   1. Rename this file to describe your tool  (e.g. gc_content.py)
@@ -41,7 +41,7 @@ class ReverseComplement:
             Description: 'B' is not a supported base.
     """
  
-    # [CHANGE] Class-level type annotation as required by the Python Function Spec
+    #Class-level type annotation as required by the Python Function Spec
     _complement: dict[str, str]
  
     def initiate(self) -> None:

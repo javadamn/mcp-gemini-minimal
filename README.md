@@ -175,12 +175,6 @@ Your Python file must follow the **Function Object Pattern**: a class with `init
 ### Template
 
 ```python
-"""
-gc_content.py — Compute GC content of a DNA sequence.
-"""
-from __future__ import annotations
-
-
 class GcContent:
     """
     Description:

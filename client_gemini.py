@@ -126,11 +126,6 @@ def _prompt_result_to_contents(prompt_result: Any) -> List[types.Content]:
  
  
 # ---------------------------------------------------------------------------
-# [CHANGE 1] NEW: Tool execution loop extracted into a single shared helper.
-#
-# Previously, identical ~25-line while-loops appeared twice in the file
-# (once for free-form turns, once for /prompt commands). They are now one
-# function, which reduces the risk of the two copies drifting out of sync.
 # ---------------------------------------------------------------------------
 async def _run_tool_loop(
     mcp,
@@ -178,9 +173,7 @@ async def _run_tool_loop(
             # Append the final model response so it's part of history
             contents.append(resp.candidates[0].content)
             return resp.text, contents
- 
-        # --- Gemini wants to call one or more tools ---
- 
+  
         # Capture the model's function-call turn before executing anything
         fc_content = resp.candidates[0].content
  
