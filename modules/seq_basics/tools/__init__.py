@@ -1,14 +1,8 @@
-"""Tool registration for seq_basics.
-
-This package is intentionally organized as one file per tool.
-That makes it easy for teams to add/remove tools without merge conflicts.
 """
-
-from __future__ import annotations
-
-from .reverse_complement import register as _register_reverse_complement
-from .translate import register as _register_translate
-
-def register_tools(mcp) -> None:
-    _register_reverse_complement(mcp)
-    _register_translate(mcp)
+Package marker for the tools/ sub-package.
+Required so that register.py can import tools as
+    modules.seq_basics.tools.<tool_name>
+ 
+Students: you do not need to edit this file.
+To add a tool, just drop a new .py file in this folder.
+"""

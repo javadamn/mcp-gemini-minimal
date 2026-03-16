@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "bioe234": {
+      "command": "/Users/jcandersonucb/.claude-worktrees/mcp-gemini-minimal/elegant-jepsen/.venv/bin/python",
+      "args": ["server.py"],
+      "cwd": "/Users/jcandersonucb/.claude-worktrees/mcp-gemini-minimal/elegant-jepsen"
+    }
+  }
+}
