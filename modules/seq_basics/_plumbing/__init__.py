@@ -1,15 +1,17 @@
-"""Plumbing for MCP tool registration and sequence resolution.
-
-Students should not need to modify anything in this package.
+"""Package marker and convenience re-export.
+ 
+server.py contains:
+    from modules.seq_basics._plumbing import resolve
+ 
+For that import to work, Python needs:
+  1. This __init__.py to mark _plumbing/ as a package.
+  2. The `resolve` name to be importable from this namespace.
+ 
+We expose `resolve` as a submodule reference so server.py can call
+    resolve.list_resources()
+just as the commented-out line in server.py expects.
+ 
+Students: you do not need to edit this file.
 """
 
-from .resolve import resolve_to_seq, register_resource, get_resource_path
-from .register import register_tools, register_resources
-
-__all__ = [
-    "resolve_to_seq",
-    "register_resource",
-    "get_resource_path",
-    "register_tools",
-    "register_resources",
-]
+from modules.seq_basics._plumbing import resolve  # noqa: F401

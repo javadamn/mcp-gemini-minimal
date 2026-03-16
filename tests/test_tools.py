@@ -1,3 +1,12 @@
+"""
+Unit tests for the seq_basics example tools.
+ 
+:: Each tool is now a class following the Python Function Object Pattern
+(initiate / run).  Tests cover both the canonical class interface AND the
+module-level alias  (for example: `reverse_complement = _instance.run`)  so that
+direct imports continue to work for students who prefer that style.
+"""
+
 import pytest
 
 from modules.seq_basics.tools.translate import translate
