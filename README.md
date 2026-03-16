@@ -43,7 +43,7 @@ You write normal Python code that does the biology. The framework handles connec
     │
     └── seq_basics/                # ← EXAMPLE MODULE (copy this for your project)
         ├── __init__.py
-        ├── SKILL.md               # AI guidance for this module
+        ├── SKILL.md               # AI guidance for this module (optional)
         ├── _utils.py              # Shared constants (codon table, etc.)
         ├── _plumbing/             # Auto-registration internals — do not edit
         │   ├── __init__.py
@@ -98,7 +98,7 @@ You:    └─► type a request
 
 ### Step 1 — Create a virtual environment
 
-Open a terminal in VS Code (`Terminal → New Terminal`):
+Open a terminal in VS Code (`Terminal >> New Terminal`):
 
 ```bash
 python -m venv .venv
@@ -141,13 +141,18 @@ Expected output:
 
 Connected to MCP server.
 Discovered tools:
-  - dna_reverse_complement: Return the reverse complement of a DNA sequence.
+  - dna_reverse_complement: Return the reverse complement of a DNA sequence...
   - dna_translate: Translate DNA to protein...
 ```
 
 Try typing:
 ```
 Translate the first 60bp of pBR322 in frame 1
+```
+
+Then you should get:
+```
+Gemini: The first 60bp of pBR322 translated in frame 1 is FSCLTAYHR*ALMR*FITVK.
 ```
 
 ---
@@ -242,7 +247,7 @@ The **class name** can be anything descriptive. The **file name** is what you us
 
 ## 7. The JSON file — C9 wrapper
 
-The `.json` file formally describes your tool. It follows the schema in `Function_Development_Specification.md` and is what the grader evaluates as the "C9 Wrapper" component.
+The `.json` file formally describes your tool. It follows the schema in [`Function_Development_Specification.md`](Function_Development_Specification.md) and is what the grader evaluates as the "C9 Wrapper" component.
 
 ### Template
 
@@ -413,12 +418,62 @@ You must submit a `prompts.json` file alongside your tool. Each entry is a natur
 ```
 
 ---
+## 13. SKILL.md — Guiding the AI
 
-## 13. Creating your own module
+Each module can contain a `SKILL.md` file. When found, its contents are automatically
+injected into Gemini's system prompt at startup, giving the AI background knowledge
+it needs to use your tools correctly.
+
+**Is it required?** No. The system works without it. But without it, Gemini has only the
+short `description` fields from your `.json` wrappers to go on. A good `SKILL.md`
+meaningfully improves the quality of Gemini's responses — it knows what your resources
+contain, how to interpret results, and what edge cases to watch for.
+
+**What to put in it:**
+- What the module does in one paragraph
+- A table of your resources and what they contain
+- For each tool: when to use it, what the parameters mean, how to interpret the output
+- Any domain vocabulary or biological context Gemini needs
+
+**Template** — create `modules/<your_module>/SKILL.md`:
+
+```markdown
+# <your_module> — Skill Guidance for Gemini
+
+## What this module does
+One paragraph describing the biological domain and purpose of this module.
+
+## Available resources
+| Resource name | Description |
+|---------------|-------------|
+| `my_genome`   | E. coli K-12 MG1655 complete genome, 4.6 Mbp. |
+
+## Tools and when to use them
+
+### `my_tool_mcp_name`
+What it computes and when Gemini should call it.
+- Trigger phrases: "find X", "scan for Y", "does this sequence contain Z"
+- Parameter notes: what each parameter means in plain language
+- Output notes: how to interpret the result
+
+## Interpreting results
+Any domain knowledge that helps Gemini explain results correctly.
+```
+
+**See `modules/seq_basics/SKILL.md` for a complete working example.**
+
+> **Token budget:** SKILL.md is included in every request. Keep it under ~300 lines.
+> Long files increase cost and can push other context out of Gemini's window.
+
+---
+
+
+
+## 14. Creating your own module
 
 ```
 modules/
-  my_own_module/
+  <your_module>/
     __init__.py        ← copy from seq_basics/ (can be empty)
     SKILL.md           ← describe what this module does for the AI
     data/
@@ -434,7 +489,7 @@ modules/
 
 ---
 
-## 14. Running tests
+## 15. Running tests
 
 ```bash
 pytest -vv -l
@@ -444,7 +499,7 @@ Write tests that cover both typical inputs and edge cases. See `tests/test_tools
 
 ---
 
-## 15. What to submit
+## 16. What to submit
 
 | File | Grading component |
 |------|------------------|
@@ -459,7 +514,7 @@ Submit your GitHub repo URL on bCourses. The repo should reflect your **individu
 
 ---
 
-## 16. Troubleshooting
+## 17. Troubleshooting
 
 **Tool doesn't appear after startup**  
 Look for `[register] WARNING` lines in the terminal. The message will say exactly what is missing — usually a `.json` wrapper file, a missing `run()` method, or a malformed JSON.

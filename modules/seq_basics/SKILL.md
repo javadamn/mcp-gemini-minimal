@@ -1,79 +1,77 @@
+# seq_basics — Skill Guidance for Gemini
+
+This file is read by the client at startup and injected into Gemini's system prompt.
+Its purpose is to give Gemini the domain knowledge it needs to use the tools in this
+module correctly and interpret their results meaningfully.
+
 ---
-name: seq-basics
-description: DNA sequence analysis tools for bioinformatics workflows
+
+## What this module does
+
+The `seq_basics` module provides fundamental DNA sequence analysis tools for working
+with sequences stored as resources or provided as raw strings.
+
 ---
 
-# Sequence Analysis Tools
+## Available resources
 
-## Overview
+| Resource name | Description |
+|---------------|-------------|
+| `pBR322`      | E. coli cloning vector pBR322, 4361 bp, circular, double-stranded. A classic lab plasmid commonly used as a reference sequence. Contains genes for ampicillin resistance (bla) and tetracycline resistance (tet). |
 
-This module provides tools for basic DNA sequence manipulation: translation, reverse complement, and related operations. Tools operate on sequence resources (GenBank files, FASTA files) or raw sequence strings.
+When a user refers to "pBR322" or "the plasmid", use the resource name `"pBR322"` directly
+as the sequence argument — do not ask the user to paste the sequence.
 
-## Working with Resources
+---
 
-Use `resources/list` to see available sequence files. Each resource has a short name (e.g., "pBR322") that you pass directly to tools.
+## Tools and when to use them
 
-**Always prefer resource names over raw sequences.** Passing `seq="pBR322"` is better than pasting 4361 nucleotides into the call.
+### `dna_reverse_complement`
+Returns the reverse complement of a DNA or RNA sequence.
 
-Resources available in this module:
-- **pBR322**: Classic E. coli cloning vector, 4361bp circular plasmid, contains ampicillin and tetracycline resistance genes
+Use when the user asks for:
+- "reverse complement of X"
+- "complement of the bottom strand"
+- "what does the antisense strand look like"
+- "flip the sequence"
 
-## Tools
+The result is the same length as the input. Uppercase output.
 
-### dna_translate
+### `dna_translate`
+Translates a DNA coding sequence to a protein sequence using the standard genetic code.
 
-Translates DNA to protein using the standard genetic code.
+Use when the user asks to:
+- "translate", "get the protein", "what protein does this encode"
+- work with a specific reading frame (1, 2, or 3)
+- translate a specific region using `start` / `end` coordinates (0-indexed, end is exclusive)
 
-Parameters:
-- `seq`: Resource name or DNA sequence
-- `start`, `end`: Optional coordinates (0-indexed)
-- `frame`: Reading frame 1, 2, or 3 (default: 1)
+**Frame guidance:**
+- Frame 1 — start reading from the first base (default)
+- Frame 2 — skip 1 base, then read triplets
+- Frame 3 — skip 2 bases, then read triplets
 
-Notes:
-- Frame 1 starts at position 0, frame 2 at position 1, frame 3 at position 2
-- Stop codons appear as `*` in output
-- When searching for ORFs, check all 3 frames on both strands
+**Stop codons** appear as `*` in the output. **Unrecognised codons** appear as `X`.
 
-### dna_reverse_complement
+**Coordinate example:** "translate bases 100 to 200" → `start=100, end=200`
+"translate the first 60bp" → `start=0, end=60` (or omit start, set `end=60`)
 
-Returns the reverse complement of a DNA sequence.
+---
 
-Parameters:
-- `seq`: Resource name or DNA sequence
+## Interpreting results
 
-Use this to get the opposite strand before translating, or when designing primers.
+- A protein sequence like `MSKGEEK...` starting with `M` (methionine) suggests you've
+  found the correct reading frame for a real open reading frame.
+- A sequence full of `*` stop codons or `X` unknowns usually means the wrong frame,
+  wrong coordinates, or the sequence is not a coding region.
+- When translating a full plasmid, most of the output will be non-coding — only specific
+  coordinate ranges will give meaningful protein sequence.
 
-## Common Workflows
+---
 
-### Find ORFs in a plasmid
+## Sequence input rules (handled automatically)
 
-1. Translate forward strand in frames 1, 2, 3
-2. Get reverse complement
-3. Translate reverse complement in frames 1, 2, 3
-4. Look for sequences between start codons (M) and stop codons (*)
-
-### Verify a gene annotation
-
-1. Use the resource name with start/end coordinates from the annotation
-2. Translate and confirm the expected protein sequence
-3. Check that it starts with M and ends with *
-
-### Quick sequence check
-
-For short sequences (under 100bp), you can paste the sequence directly:
-```
-dna_translate(seq="ATGGCTAGCTAG")
-```
-
-For anything longer, use a resource name.
-
-## Sequence Input Formats
-
-Tools accept multiple input formats, automatically detected:
-- Resource name: `"pBR322"`
-- Raw sequence: `"ATGCGATCG"`
-- Sequence with whitespace: `"ATG CGA TCG"` (whitespace stripped)
-- FASTA format: `">name\nATGCGATCG"`
-- GenBank format: Full GenBank file content
-
-When in doubt, use the resource name.
+You never need to paste the full sequence. The framework resolves these automatically:
+- `"pBR322"` → full 4361 bp sequence
+- A raw string like `"ATGCGATCG"` → used as-is
+- A FASTA string starting with `>` → sequence extracted automatically
+- A GenBank string starting with `LOCUS` → sequence extracted automatically
