@@ -1,6 +1,4 @@
 """
-modules/seq_basics/_plumbing/register.py
-
 Auto-discovery and MCP registration for tools and resources.
 
 Scanning order for each .py tool file
@@ -55,7 +53,7 @@ def register_tools(mcp, tools_dir: Path) -> None:
             print(f"[register] WARNING: Could not import {import_path}: {e}", file=sys.stderr)
             continue
 
-        # [CHANGE] Primary source is now a companion .json file following the
+        # Primary source is now a companion .json file following the
         # C9 JSON schema (Function_Development_Specification.md).
         # TOOL_META inside the .py file is still accepted for backward compat.
         meta = _load_json_wrapper(py_file)
@@ -75,7 +73,7 @@ def register_tools(mcp, tools_dir: Path) -> None:
                 )
                 continue
 
-        # [CHANGE] Class pattern (initiate/run) is now detected and handled first,
+        # Class pattern (initiate/run) is now detected and handled first,
         # then falls back to plain function matching the file stem.
         callable_fn = _resolve_callable(module, module_name, py_file.name)
         if callable_fn is None:

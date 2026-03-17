@@ -29,11 +29,7 @@ The framework handles connecting your Python codes to the AI.
 ├── requirements.txt
 │
 ├── tests/
-│   ├── conftest.py
-│   ├── test_registration_smoke.py
-│   ├── test_resolve.py
-│   ├── test_tools.py
-│   └── test_seq_tools.py
+│   └── test_tools.py
 │
 └── modules/
     ├── __init__.py                # Scans all sub-modules — do not edit
@@ -120,7 +116,9 @@ pip install -r requirements.txt
 GEMINI_API_KEY="paste_your_key_here"
 ```
 
-> 🔴 **Security warning:** Never upload `.env` to GitHub. Ensure `.env` is listed in `.gitignore`.
+> 🔴 **Security warning:** Never upload `.env` to GitHub. Ensure `.env` is listed in `.gitignore`. 
+Run this in your project folder: 
+> echo ".env" >> .gitignore
 
 ### Step 3 — Run the client
 
@@ -177,12 +175,6 @@ Your Python file must follow the **Function Object Pattern**: a class with `init
 ### Template
 
 ```python
-"""
-gc_content.py — Compute GC content of a DNA sequence.
-"""
-from __future__ import annotations
-
-
 class GcContent:
     """
     Description:
